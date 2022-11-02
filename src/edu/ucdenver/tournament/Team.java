@@ -9,7 +9,7 @@ public class Team {
         this.name = name;
 
     }
-    public Country getCounty(){//FIXME probably country and just an error on uml
+    public Country getCountry(){//uml says getCounty
 
         return null;//fixme
     }

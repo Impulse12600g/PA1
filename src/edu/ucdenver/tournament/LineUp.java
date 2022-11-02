@@ -10,7 +10,7 @@ public class LineUp {
 
         return null;//fixme
     }
-    public List<Player> getPlaters(){
+    public List<Player> getPlayers(){
 
         return null;//fixme
     }

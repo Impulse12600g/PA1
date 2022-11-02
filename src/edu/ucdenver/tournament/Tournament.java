@@ -1,13 +1,21 @@
 package edu.ucdenver.tournament;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
-public class Tournament {
+public class Tournament implements Serializable {
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;
 
+
+    public static final String filename = "./tournament.ser";//load/save double check w javi
+
     public Tournament(String name, LocalDate startDate, LocalDate endDate){
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
 
     }
     public void loadFromFile(String fileName){
@@ -15,8 +23,10 @@ public class Tournament {
     }
     public void saveToFile(String fineName){
 
+
     }
     public void addCountry(String countryName){
+
 
     }
     public void addTeam(String name, String country){
@@ -40,9 +50,21 @@ public class Tournament {
     public void setMatchScore(LocalDate dateTime, int teamAScore, int teamBScore){//uml gives just variable types
 
     }
-    //getUpcomingMatches():List<Match>
-    //getMatchesOn(LocalDate): List<Match>
-    //getMatchesFor(String teamName): List<Match>
-    //getMachLineUps(LocalDate): List<LineUp>
+    public List<Match> getUpcomingMatches(){
+
+        return null;//fixme
+    }
+    public List<Match> getMatchesOn(LocalDate date){
+
+        return null;//fixme
+    }
+    public List<Match> getMatchesFor(){
+
+        return null;//fixme
+    }
+    public List<LineUp> getMatchLineUps(){
+
+        return null;//fixme
+    }
 
 }
