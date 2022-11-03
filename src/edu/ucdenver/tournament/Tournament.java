@@ -2,6 +2,7 @@ package edu.ucdenver.tournament;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,6 +10,7 @@ public class Tournament implements Serializable {
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;
+    private ArrayList<Country> participatingCountries;
 
 
     public static final String filename = "./tournament.ser";//load/save double check w javi
@@ -19,7 +21,7 @@ public class Tournament implements Serializable {
         this.endDate = endDate;
 
     }
-    public void loadFromFile(String fileName){
+    public void loadFromFile(String fileName){ //TODO add file operations
         try{
             File file = new File(fileName);
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -35,7 +37,7 @@ public class Tournament implements Serializable {
         }
 
     }
-    public void saveToFile(String fineName){
+    public void saveToFile(String fineName){ //TODO finish file manipulation
         String things = "PLACEHOLDER"; // figure out what to write to file
         try{
             FileWriter writer = new FileWriter(fineName, false);
@@ -47,8 +49,23 @@ public class Tournament implements Serializable {
         }
 
     }
-    public void addCountry(String countryName){
+    public Country getCountry(String countryName) throws IllegalArgumentException{
+        Country country;
+        for(Country c: this.participatingCountries){
+            if((c.getCountryName()).equalsIgnoreCase(countryName)){return c;}
+        }
+        throw new IllegalArgumentException("Country is not participating");
+    }
 
+    public void addCountry(String countryName){
+        Country country = null;
+        try{country = this.getCountry(countryName);}
+        catch(IllegalArgumentException iae){
+            this.participatingCountries.add(new Country(countryName));
+        }
+        if(country != null){
+            throw new IllegalArgumentException("Country is already in the list");
+        }
 
     }
     public void addTeam(String name, String country){
