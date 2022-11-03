@@ -11,6 +11,9 @@ public class Tournament implements Serializable {
     private LocalDate startDate;
     private LocalDate endDate;
     private ArrayList<Country> participatingCountries;
+    private ArrayList<Team> listTeams;
+    private ArrayList<Referee> listReferees;
+    private ArrayList<Match> listMatches;
 
 
     public static final String filename = "./tournament.ser";//load/save double check w javi
@@ -20,7 +23,24 @@ public class Tournament implements Serializable {
         this.startDate = startDate;
         this.endDate = endDate;
 
+        // temporary initial assignment until we decide what to do with these
+        //FIXME
+        this.participatingCountries = new ArrayList<>();
+        this.listTeams = new ArrayList<>();
+        this.listReferees = new ArrayList<>();
+        this.listMatches = new ArrayList<>();
     }
+
+    // Temporary getters for array lists /////////////////////////////////////////
+    // FIXME
+    public ArrayList<Country> getParticipatingCountries(){return participatingCountries;}
+    public ArrayList<Team> getListTeams(){return listTeams;}
+    public ArrayList<Referee> getListReferees(){return listReferees;}
+    public ArrayList<Match> getListMatches(){return listMatches;}
+
+    /////////////////////////////////////////////////////////////////////////////
+
+
     public void loadFromFile(String fileName){ //TODO add file operations
         try{
             File file = new File(fileName);
@@ -66,19 +86,19 @@ public class Tournament implements Serializable {
         if(country != null){
             throw new IllegalArgumentException("Country is already in the list");
         }
-
     }
-    public void addTeam(String name, String country){
 
+    public void addTeam(String name, Country country){
+        this.listTeams.add(new Team(name, country));
     }
-    public void addReferee (String name, String country){
-
+    public void addReferee (String name, Country country){
+        this.listReferees.add(new Referee(name, country));
     }
     public void addPlayer(String teamName, String playerName, int age, double height, double weight){
-
+        // Will we need to make listOfPlayers available here? Only way I know how to do this is with that arraylist
     }
-    public void addMatch(LocalDate dateTime, String teamAName, String teamBName){
-
+    public void addMatch(LocalDate dateTime, Team teamAName, Team teamBName){
+        this.listMatches.add(new Match(dateTime, teamAName, teamBName));
     }
     public void addRefereeToMatch(LocalDate dateTime, String refereeName){
 
