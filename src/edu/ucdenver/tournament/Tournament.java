@@ -34,7 +34,8 @@ public class Tournament implements Serializable {
     // Temporary getters for array lists /////////////////////////////////////////
     // FIXME
     public ArrayList<Country> getParticipatingCountries(){return participatingCountries;}
-    public ArrayList<Team> getListTeams(){return listTeams;}
+    public ArrayList<Team> getListTeams()
+    {return listTeams;}
     public ArrayList<Referee> getListReferees(){return listReferees;}
     public ArrayList<Match> getListMatches(){return listMatches;}
 
