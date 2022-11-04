@@ -22,4 +22,8 @@ public class Team {
     public void addPlayer(String name, int age, double height, double weight){
         this.squad.add(new Player(name, age, height, weight));
     }
+    public String getName() {
+        return name;
+    }
+
 }

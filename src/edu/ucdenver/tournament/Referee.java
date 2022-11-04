@@ -11,5 +11,8 @@ public class Referee {
     public Country getCountry(){
         return country;
     }
+    public String getName() {//needed to pull name from tournament add referee method
+        return name;
+    }
 
 }

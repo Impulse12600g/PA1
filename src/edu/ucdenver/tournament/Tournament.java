@@ -1,9 +1,12 @@
 package edu.ucdenver.tournament;
 
+import javax.sound.sampled.Line;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Tournament implements Serializable {
@@ -34,8 +37,7 @@ public class Tournament implements Serializable {
     // Temporary getters for array lists /////////////////////////////////////////
     // FIXME
     public ArrayList<Country> getParticipatingCountries(){return participatingCountries;}
-    public ArrayList<Team> getListTeams()
-    {return listTeams;}
+    public ArrayList<Team> getListTeams() {return listTeams;}
     public ArrayList<Referee> getListReferees(){return listReferees;}
     public ArrayList<Match> getListMatches(){return listMatches;}
 
@@ -88,17 +90,58 @@ public class Tournament implements Serializable {
             throw new IllegalArgumentException("Country is already in the list");
         }
     }
+    public void addTeam(String teamName, Country country){
+        Team team = null;
+        //LineUp lineUp = null;
+        try{
+            team.getSquad();
+        } catch (IllegalArgumentException e) {
+            this.listTeams.add(new Team(teamName, country));
 
-    public void addTeam(String name, Country country){
-        this.listTeams.add(new Team(name, country));
+        }
+        throw new IllegalArgumentException("Team is already in the list");
+
     }
-    public void addReferee (String name, Country country){
-        this.listReferees.add(new Referee(name, country));
+    public void addReferee (String name, String country){
+        Match match = null;
+        try{
+            for(Referee r : listReferees){
+                if(Objects.equals(name,r.getName())){
+                    throw new IllegalArgumentException("Referee is already in list");
+                }else{
+                    for(Country c: participatingCountries){
+                        if(Objects.equals(c.getCountryName(), country)){
+                            this.listReferees.add(new Referee(name, c));
+                        }else{
+                            throw new IllegalArgumentException("Country does not exist");
+                        }
+                    }
+                }
+            }
+        }catch (IllegalArgumentException iae){
+            iae.printStackTrace();
+        }
+       // throw new IllegalArgumentException("Referee us already in list");
     }
     public void addPlayer(String teamName, String playerName, int age, double height, double weight){
         // Will we need to make listOfPlayers available here? Only way I know how to do this is with that arraylist
+        try{
+            for(Team t : this.listTeams) {
+                if(Objects.equals(teamName, t.getName())){
+                    for(Player p: t.getSquad()) {
+                   if ((p.getName()).equals(playerName)) {
+                       throw new IllegalArgumentException("Player is already on a team");
+                   }else{
+                       t.addPlayer(playerName, age, height,  weight);
+                   }
+               }
+            }
+            }
+        }catch (IllegalArgumentException iae){
+            iae.printStackTrace();
+        }
     }
-    public void addMatch(LocalDate dateTime, Team teamAName, Team teamBName){
+    public void addMatch(LocalDateTime dateTime, Team teamAName, Team teamBName){
         this.listMatches.add(new Match(dateTime, teamAName, teamBName));
     }
     public void addRefereeToMatch(LocalDate dateTime, String refereeName){
