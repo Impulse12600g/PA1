@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class Tournament implements Serializable {
     private String name;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private ArrayList<Country> participatingCountries;
     private ArrayList<Team> listTeams;
     private ArrayList<Referee> listReferees;
@@ -21,17 +21,17 @@ public class Tournament implements Serializable {
 
     public static final String filename = "./tournament.ser";//load/save double check w javi
 
-    public Tournament(String name, LocalDate startDate, LocalDate endDate){
+    public Tournament(String name, LocalDateTime startDate, LocalDateTime endDate){
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
 
         // temporary initial assignment until we decide what to do with these
         //FIXME
-        this.participatingCountries = new ArrayList<>();
-        this.listTeams = new ArrayList<>();
-        this.listReferees = new ArrayList<>();
-        this.listMatches = new ArrayList<>();
+        this.participatingCountries = new ArrayList<>(100);
+        this.listTeams = new ArrayList<>(100);
+        this.listReferees = new ArrayList<>(100);
+        this.listMatches = new ArrayList<>(100);
     }
 
     // Temporary getters for array lists /////////////////////////////////////////
@@ -90,16 +90,29 @@ public class Tournament implements Serializable {
             throw new IllegalArgumentException("Country is already in the list");
         }
     }
+
     public void addTeam(String teamName, Country country){
-        Team team = null;
-        //LineUp lineUp = null;
         try{
-            team.getSquad();
+            for(Team t: listTeams){
+                if(Objects.equals(teamName,t.getName())){
+                    throw new IllegalArgumentException("Team is already in list");
+                }else{
+                    for(Country c: participatingCountries){
+                        if((Objects.equals(c.getCountryName(), country.getCountryName()))){
+                            this.listTeams.add(new Team(teamName, c));
+                        }else{
+                            throw new IllegalArgumentException("Country does not exist");
+                        }
+                    }
+                }
+            }
         } catch (IllegalArgumentException e) {
             this.listTeams.add(new Team(teamName, country));
 
         }
         throw new IllegalArgumentException("Team is already in the list");
+
+
 
     }
     public void addReferee (String name, String country){

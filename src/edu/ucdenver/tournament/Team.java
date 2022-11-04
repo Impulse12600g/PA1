@@ -8,7 +8,7 @@ public class Team {
     private ArrayList<Player> squad;
     private Country country;
 
-    Team(String name, Country country){
+    public Team(String name, Country country){
         this.name = name;
         this.country = country;
     }
