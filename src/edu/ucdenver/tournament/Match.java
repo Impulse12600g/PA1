@@ -8,9 +8,14 @@ public class Match {
     private LocalDate dateTime;
     private int scoreTeamA;
     private int scoreTeamB;
+    Team teamA;
+    Team teamB;
 
     Match(LocalDate dateTime, Team teamA, Team teamB){
         this.dateTime=dateTime;
+        this.teamA = teamA;
+        this.teamB = teamB;
+
     }
     public LineUp getTeamA(){
 

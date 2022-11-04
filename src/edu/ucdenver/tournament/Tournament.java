@@ -112,7 +112,7 @@ public class Tournament implements Serializable {
     }
     public List<Match> getUpcomingMatches(){
 
-        return null;//fixme
+        return listMatches;
     }
     public List<Match> getMatchesOn(LocalDate date){
 
