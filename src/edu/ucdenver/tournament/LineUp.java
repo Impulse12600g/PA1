@@ -1,20 +1,22 @@
 package edu.ucdenver.tournament;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LineUp {
+    private ArrayList<Player> listOfPlayers;
+    private Team team;
     public LineUp(Team team){
-
+        this.team = team;
     }
     public Team getTeam(){
-
-        return null;//fixme
+        return team;
     }
     public List<Player> getPlayers(){
-
-        return null;//fixme
+        return listOfPlayers;
     }
     public void addPlayer(Player player){
+        this.listOfPlayers.add(player);
 
     }
 }
