@@ -18,8 +18,7 @@ public class Match {
 
     }
     public LineUp getTeamA(){
-
-        return null;//fixme
+        return null;
     }
     public LineUp getTeamB(){
 
