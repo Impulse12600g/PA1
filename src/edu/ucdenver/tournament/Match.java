@@ -18,7 +18,14 @@ public class Match {
 
     }
     public LineUp getTeamA(){
-        return null;
+        LineUp lineUp = new LineUp(teamA);
+        try{
+            lineUp.getTeam();
+            return lineUp;
+        } catch(Exception e){
+            throw new IllegalArgumentException("Lineup does not exist");
+        }
+
     }
     public LineUp getTeamB(){
 
