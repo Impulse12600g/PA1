@@ -47,11 +47,9 @@ public class Match {
         return null;//fixme
     }
     public void addReferee(Referee referee){
-
     }
     public void setMatchScore(int  scoreTeamA, int scoreTeamB){
         this.scoreTeamA = scoreTeamA;
         this.scoreTeamB =scoreTeamB;
     }
-
 }
