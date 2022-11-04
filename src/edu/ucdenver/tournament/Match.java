@@ -8,27 +8,23 @@ public class Match {
     private LocalDateTime dateTime;
     private int scoreTeamA;
     private int scoreTeamB;
-    Team teamA;
-    Team teamB;
+    LineUp lineupA;
+    LineUp lineupB;
 
     Match(LocalDateTime dateTime, Team teamA, Team teamB){
         this.dateTime=dateTime;
-        this.teamA = teamA;
-        this.teamB = teamB;
+        lineupA = new LineUp(teamA);
+        lineupB = new LineUp(teamB);
+    }
+    public LineUp getTeamA(){return lineupA;}
+    public LineUp getTeamB(){return lineupB;}
 
-    }
-    public LineUp getTeamA(){
-        return null;
-    }
-    public LineUp getTeamB(){
 
-        return null;//fixme
-    }
     public boolean isUpcoming(){
-
-        return false;//fixme
+        return dateTime.isEqual(LocalDateTime.now()) || dateTime.isAfter(LocalDateTime.now());
     }
     public void addPlayer(Player player, Team team){
+
 
     }
     public List<Referee> getReferees(){
