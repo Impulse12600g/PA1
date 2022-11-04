@@ -91,7 +91,7 @@ public class Tournament implements Serializable {
         }
     }
 
-    public Team getTeam(String teamName) throws IllegalArgumentException{
+    public Team getTeam(String teamName) throws IllegalArgumentException{ // added getter for testing and setter
         for(Team t: this.listTeams){
             if((t.getName()).equals(teamName)){return t;}
         }
