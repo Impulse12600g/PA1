@@ -28,10 +28,10 @@ public class Tournament implements Serializable {
 
         // temporary initial assignment until we decide what to do with these
         //FIXME
-        this.participatingCountries = new ArrayList<>(100);
-        this.listTeams = new ArrayList<>(100);
-        this.listReferees = new ArrayList<>(100);
-        this.listMatches = new ArrayList<>(100);
+        this.participatingCountries = new ArrayList<>();
+        this.listTeams = new ArrayList<>();
+        this.listReferees = new ArrayList<>();
+        this.listMatches = new ArrayList<>();
     }
 
     // Temporary getters for array lists /////////////////////////////////////////
@@ -91,51 +91,53 @@ public class Tournament implements Serializable {
         }
     }
 
-    public void addTeam(String teamName, Country country){
+    public Team getTeam(String teamName) throws IllegalArgumentException{
+        for(Team t: this.listTeams){
+            if((t.getName()).equals(teamName)){return t;}
+        }
+        throw new IllegalArgumentException("Team is not in the list");
+    }
+
+    public void addTeam(String teamName, String country){
+        Team team = null;
+        //LineUp lineUp = null;
         try{
-            for(Team t: listTeams){
-                if(Objects.equals(teamName,t.getName())){
-                    throw new IllegalArgumentException("Team is already in list");
-                }else{
-                    for(Country c: participatingCountries){
-                        if((Objects.equals(c.getCountryName(), country.getCountryName()))){
-                            this.listTeams.add(new Team(teamName, c));
-                        }else{
-                            throw new IllegalArgumentException("Country does not exist");
-                        }
-                    }
-                }
-            }
+            team = this.getTeam(teamName);
         } catch (IllegalArgumentException e) {
-            this.listTeams.add(new Team(teamName, country));
-
-        }
-        throw new IllegalArgumentException("Team is already in the list");
-
-
-
-    }
-    public void addReferee (String name, String country){
-        Match match = null;
-        try{
-            for(Referee r : listReferees){
-                if(Objects.equals(name,r.getName())){
-                    throw new IllegalArgumentException("Referee is already in list");
-                }else{
-                    for(Country c: participatingCountries){
-                        if(Objects.equals(c.getCountryName(), country)){
-                            this.listReferees.add(new Referee(name, c));
-                        }else{
-                            throw new IllegalArgumentException("Country does not exist");
-                        }
-                    }
-                }
+            for(Country c: participatingCountries){
+                if(Objects.equals(c.getCountryName(), country))
+                    this.listTeams.add(new Team(name, c));
             }
-        }catch (IllegalArgumentException iae){
-            iae.printStackTrace();
+
         }
-       // throw new IllegalArgumentException("Referee us already in list");
+        if(team != null) {
+            throw new IllegalArgumentException("Team is already in the list");
+        }
     }
+
+    public Referee getReferee(String name) throws IllegalArgumentException{
+        for(Referee r: this.listReferees){
+            if((r.getName()).equalsIgnoreCase(name)){return r;}
+        }
+        throw new IllegalArgumentException("Referee is not in the list");
+    }
+
+    public void addReferee (String name, String country){
+        Referee referee = null;
+        try{
+            referee = this.getReferee(name);
+        } catch (IllegalArgumentException e){
+            for(Country c: participatingCountries){
+                if(Objects.equals(c.getCountryName(), country))
+                    this.listReferees.add(new Referee(name, c));
+            }
+        }
+        if(referee != null){
+            throw new IllegalArgumentException("Referee is already in the list");
+        }
+    }
+
+
     public void addPlayer(String teamName, String playerName, int age, double height, double weight){
         // Will we need to make listOfPlayers available here? Only way I know how to do this is with that arraylist
         try{
